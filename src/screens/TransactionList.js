@@ -1,40 +1,60 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
-import {Header, List, LoadingOverlay} from '../components';
+import {View, StyleSheet} from 'react-native';
+import {Header, List, LoadingOverlay, SearchBar} from '../components';
 import {TransactionListAPI} from '../api';
 
 const TransactionList = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [transactions, setTransactions] = useState([]);
+  const [arrayHolder, setArrayHolder] = useState([]);
+  const [text, setText] = useState('');
 
   useEffect(() => {
-    fetchData();
+    fetchInitialData();
   }, []);
 
-  const fetchData = async () => {
+  const fetchInitialData = async () => {
     try {
       setLoading(true);
-      // setRefreshing(true);
-      const result = await TransactionListAPI();
+      let result = await TransactionListAPI();
       setTransactions(result);
+      setArrayHolder(result);
       setLoading(false);
-      // alert(JSON.stringify(result));
-      // setRefreshing(false);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header title="Transaction List" />
+      <SearchBar
+        setData={setTransactions}
+        setText={setText}
+        arrayHolder={Object.values(arrayHolder)}
+        text={text}
+      />
       {transactions.length === 0 ? (
         <LoadingOverlay visible={loading} />
       ) : (
-        <List data={Object.values(transactions)} navigation={navigation} />
+        <View style={styles.containerList}>
+          <List data={Object.values(transactions)} navigation={navigation} />
+        </View>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f7f7f7',
+  },
+  containerList: {
+    flex: 1,
+    // padding: 10,
+    marginTop: 10,
+  },
+});
 
 export default TransactionList;

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Header} from '../components';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Header, TextBold} from '../components';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TransactionDetail = ({route, navigation}) => {
@@ -9,55 +9,67 @@ const TransactionDetail = ({route, navigation}) => {
   useEffect(() => {
     const {data} = route.params;
     setDataDetail(data);
-  }, [navigation, route]);
+  }, [route.params]);
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <Header
         title="Transaction Detail"
         leftIcon="arrow-back"
         leftButton={() => navigation.goBack()}
       />
-      <View style={styles.container}>
+      <View style={styles.contentContainer}>
         <View style={styles.divider}>
-          <Text>ID TRANSAKSI: #{dataDetail.id}</Text>
+          <View style={styles.idContainer}>
+            <TextBold text={'ID TRANSAKSI: #' + dataDetail.id} />
+            <TouchableOpacity onPress={() => console.warn('dummy button')}>
+              <Icon
+                size={20}
+                style={styles.iconCopy}
+                color={'#f58442'}
+                name="content-copy"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.divider}>
-          <Text>DETAIL TRANSAKSI</Text>
+          <View style={styles.detailContainer}>
+            <TextBold text="DETAIL TRANSAKSI" />
+            <TouchableOpacity onPress={() => console.warn('dummy button')}>
+              <TextBold text="Tutup" style={styles.buttonClose} />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.bankNames}>
-          <Text style={styles.textBold}>
-            {dataDetail && dataDetail.sender_bank.toUpperCase()}{' '}
-          </Text>
+          <TextBold text={dataDetail && dataDetail.sender_bank.toUpperCase()} />
           <Icon size={15} name="arrow-forward" />
-          <Text style={styles.textBold}>
-            {' '}
-            {dataDetail && dataDetail.beneficiary_bank.toUpperCase()}
-          </Text>
+          <TextBold
+            text={dataDetail && dataDetail.beneficiary_bank.toUpperCase()}
+          />
         </View>
         <View style={styles.rowContainer}>
-          <View style={{backgroundColor:'red', flex:1}}>
-            <Text>{dataDetail.beneficiary_name}</Text>
+          <View style={styles.leftSection}>
+            <TextBold text={dataDetail.beneficiary_name} />
             <Text>{dataDetail.account_number}</Text>
           </View>
-          <View style={{alignSelf:'flex-start',backgroundColor:'red', flex:1}}>
-            <Text>NOMINAL</Text>
+          <View style={styles.rightSection}>
+            <TextBold text="NOMINAL" />
             <Text>{dataDetail.amount}</Text>
           </View>
         </View>
         <View style={styles.rowContainer}>
-          <View style={{backgroundColor:'red', flex:1}}>
-            <Text>BERITA TRANSFER</Text>
+          <View style={styles.leftSection}>
+            <TextBold text="BERITA TRANSFER" />
             <Text>{dataDetail.remark}</Text>
           </View>
-          <View style={{alignSelf:'flex-start',backgroundColor:'red', flex:1}}>
-            <Text>KODE UNIK</Text>
+          <View style={styles.rightSection}>
+            <TextBold text="KODE UNIK" />
             <Text>{dataDetail.unique_code}</Text>
           </View>
         </View>
         <View style={styles.rowContainer}>
-          <View style={{alignSelf:'flex-start',backgroundColor:'red', flex:1}}>
-            <Text>WAKTU DIBUAT</Text>
+          <View style={styles.leftSection}>
+            <TextBold text="WAKTU DIBUAT" />
             <Text>{dataDetail.created_at}</Text>
           </View>
         </View>
@@ -69,14 +81,33 @@ const TransactionDetail = ({route, navigation}) => {
 export default TransactionDetail;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10,
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  contentContainer: {
+    padding: 15,
   },
   rowContainer: {
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+  },
+  idContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  detailContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  leftSection: {
+    flex: 1,
+  },
+  rightSection: {
+    alignSelf: 'flex-start',
+    flex: 1,
   },
   divider: {
     borderBottomWidth: 1,
@@ -86,12 +117,18 @@ const styles = StyleSheet.create({
   },
   bankNames: {
     paddingTop: 15,
-    paddingBottom: 15,
+    paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
   textBold: {
     fontWeight: '700',
     fontSize: 16,
+  },
+  iconCopy: {
+    marginLeft: 10,
+  },
+  buttonClose: {
+    color: '#f58442',
   },
 });

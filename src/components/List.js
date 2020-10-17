@@ -1,25 +1,14 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  RefreshControl,
-} from 'react-native';
+import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {numberFormatter, uppercaseFirstLetter} from '../helpers/utils';
+import {TextBold} from '../components';
 
 const List = props => {
   return (
     <FlatList
+      showsVerticalScrollIndicator={false}
       data={props.data}
-      refreshControl={
-        <RefreshControl
-          refreshing={props.refreshing}
-          onRefresh={props.onRefresh}
-        />
-      }
       renderItem={({item}) => (
         <TouchableOpacity
           style={styles.listContainer}
@@ -27,38 +16,43 @@ const List = props => {
             props.navigation.navigate('Transaction Detail', {data: item})
           }>
           <View style={styles.items}>
-            <View>
-              <View style={styles.bankNames}>
-                <Text style={styles.textBold}>
-                  {item.sender_bank.toUpperCase()}{' '}
-                </Text>
-                <Icon size={15} name="arrow-forward" />
-                <Text style={styles.textBold}>
-                  {' '}
-                  {item.beneficiary_bank.toUpperCase()}
-                </Text>
-              </View>
-              <Text>{item.beneficiary_name}</Text>
-              <View style={styles.amountAndDate}>
-                <Text>{numberFormatter(item.amount)} </Text>
-                <Icon size={10} name="circle" />
-                <Text> {item.completed_at} </Text>
-              </View>
-            </View>
+            {/* STATUS INDICATOR */}
             <View
               style={
                 item.status === 'SUCCESS'
-                  ? styles.successBadge
-                  : styles.pendingBadge
-              }>
-              <Text
+                  ? styles.cardSuccess
+                  : styles.cardPending
+              }
+            />
+            <View style={styles.detailContainer}>
+              <View style={{flex: 1}}>
+                <View style={styles.bankNames}>
+                  <TextBold text={item.sender_bank.toUpperCase()} />
+                  <Icon size={15} name="arrow-forward" />
+                  <TextBold text={item.beneficiary_bank.toUpperCase()} />
+                </View>
+                <Text>{item.beneficiary_name}</Text>
+                <View style={styles.amountAndDate}>
+                  <Text>{numberFormatter(item.amount)} </Text>
+                  <Icon size={10} name="circle" />
+                  <Text> {item.completed_at} </Text>
+                </View>
+              </View>
+              <View
                 style={
                   item.status === 'SUCCESS'
-                    ? styles.successText
-                    : styles.pendingText
+                    ? styles.successBadge
+                    : styles.pendingBadge
                 }>
-                {uppercaseFirstLetter(item.status)}
-              </Text>
+                <Text
+                  style={
+                    item.status === 'SUCCESS'
+                      ? styles.successText
+                      : styles.pendingText
+                  }>
+                  {uppercaseFirstLetter(item.status)}
+                </Text>
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -69,13 +63,32 @@ const List = props => {
 
 const styles = StyleSheet.create({
   listContainer: {
-    padding: 10,
-    borderBottomWidth: 0.5,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  cardSuccess: {
+    backgroundColor: '#66d490',
+    width: 5,
+    height: '100%',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+  },
+  detailContainer: {
+    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cardPending: {
+    backgroundColor: '#f58442',
+    width: 5,
+    height: '100%',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
   items: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
   },
   bankNames: {
