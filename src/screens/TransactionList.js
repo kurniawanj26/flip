@@ -1,21 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {Header, List, LoadingOverlay} from '../components';
 import {TransactionListAPI} from '../api';
 
-const TransactionList = () => {
+const TransactionList = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    try {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-    } catch (error) {
-      console.log(error);
-    }
+    fetchData();
   }, []);
 
   const fetchData = async () => {
@@ -23,9 +16,9 @@ const TransactionList = () => {
       setLoading(true);
       // setRefreshing(true);
       const result = await TransactionListAPI();
-      // setContacts(result.data);
-      alert(JSON.stringify(result))
+      setTransactions(result);
       setLoading(false);
+      // alert(JSON.stringify(result));
       // setRefreshing(false);
     } catch (error) {
       console.log(error);
@@ -36,9 +29,10 @@ const TransactionList = () => {
     <View>
       <Header title="Transaction List" />
       {transactions.length === 0 ? (
-        <LoadingOverlay visible={loading}/>
-      ) : <Text>Halo</Text>
-      }
+        <LoadingOverlay visible={loading} />
+      ) : (
+        <List data={Object.values(transactions)} navigation={navigation} />
+      )}
     </View>
   );
 };

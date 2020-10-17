@@ -7,9 +7,8 @@ const Router = () => {
 
   return (
     <AppStack.Navigator screenOptions={{headerShown: false}}>
-    {/* // <AppStack.Navigator> */}
       <AppStack.Screen name="Transaction List" component={TransactionList} />
-      <AppStack.Screen name="Detail" component={TransactionDetail} />
+      <AppStack.Screen name="Transaction Detail" component={TransactionDetail} />
     </AppStack.Navigator>
   );
 };
