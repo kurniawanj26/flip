@@ -8,7 +8,7 @@ const CustomHeader = props => {
     <Header style={styles.header}>
       {props.leftIcon ? (
         <Left>
-          <Button style={styles.button} onPress={props.leftButton}>
+          <Button transparent style={styles.button} onPress={props.leftButton}>
             <Icon size={30} color="white" name={props.leftIcon} />
           </Button>
         </Left>

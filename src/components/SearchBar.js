@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     flex: 1,
     fontSize: RFPercentage(2),
+    padding: 0,
   },
   buttonContainer: {
     flexDirection: 'row',

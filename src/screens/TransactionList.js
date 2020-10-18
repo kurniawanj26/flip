@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 import {
   Header,
   List,
@@ -76,6 +76,7 @@ const TransactionList = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header title="Transaction List" />
+      <StatusBar backgroundColor="#f58442" />
       <SearchBar
         setData={setTransactions}
         setText={setText}
