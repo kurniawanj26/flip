@@ -1,8 +1,13 @@
 import React from 'react';
 import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {numberFormatter, uppercaseFirstLetter} from '../helpers/utils';
+import {
+  numberFormatter,
+  uppercaseFirstLetter,
+  dateFormatter,
+} from '../helpers/utils';
 import {TextBold} from '../components';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 const List = props => {
   return (
@@ -10,6 +15,7 @@ const List = props => {
       showsVerticalScrollIndicator={false}
       data={props.data}
       extraData={props.extraData}
+      initialNumToRender={5}
       renderItem={({item}) => (
         <TouchableOpacity
           style={styles.listContainer}
@@ -32,11 +38,16 @@ const List = props => {
                   <Icon size={15} name="arrow-forward" />
                   <TextBold text={item.beneficiary_bank.toUpperCase()} />
                 </View>
-                <Text>{item.beneficiary_name}</Text>
+                <Text style={styles.text}>{item.beneficiary_name}</Text>
                 <View style={styles.amountAndDate}>
-                  <Text>{numberFormatter(item.amount)} </Text>
+                  <Text style={styles.text}>
+                    {numberFormatter(item.amount)}{' '}
+                  </Text>
                   <Icon size={8} name="circle" />
-                  <Text> {item.completed_at} </Text>
+                  <Text style={styles.text}>
+                    {' '}
+                    {dateFormatter(item.created_at)}
+                  </Text>
                 </View>
               </View>
               <View
@@ -96,9 +107,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  textBold: {
-    fontWeight: '700',
-    fontSize: 16,
+  text: {
+    fontSize: RFPercentage(2),
   },
   amountAndDate: {
     flexDirection: 'row',
@@ -118,9 +128,11 @@ const styles = StyleSheet.create({
   successText: {
     color: 'white',
     fontWeight: '500',
+    fontSize: RFPercentage(2),
   },
   pendingText: {
     fontWeight: '500',
+    fontSize: RFPercentage(2),
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   Text,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 const SearchBar = props => {
   const searchData = text => {
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     flex: 1,
+    fontSize: RFPercentage(2),
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -67,6 +69,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#f58442',
+    fontSize: RFPercentage(2),
   },
 });
 

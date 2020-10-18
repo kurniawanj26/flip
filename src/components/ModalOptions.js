@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, FlatList, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 
 const ModalOptions = props => {
   const [selectedOptions, setSelectedOptions] = useState('URUTKAN');
@@ -16,12 +17,11 @@ const ModalOptions = props => {
 
   const setSelected = item => {
     setSelectedOptions(item);
-    if (item === 'Nama A-Z') {
-      props.sortAscending('Nama A-Z');
-    } else if (item === 'Nama Z-A') {
-      props.sortDescending('Nama Z-A');
+    if (item === 'Nama A-Z' || item === 'Nama Z-A') {
+      props.sortByName(item);
+    } else if (item === 'Tanggal Terbaru' || item === 'Tanggal Terlama') {
+      props.sortByDate(item);
     }
-    // console.warn(item)
   };
 
   return (
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 15,
-    fontSize: 14,
+    fontSize: RFPercentage(2),
   },
 });
 

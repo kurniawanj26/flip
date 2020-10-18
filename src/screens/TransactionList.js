@@ -37,24 +37,36 @@ const TransactionList = ({navigation}) => {
     setModalVisible(!modalVisible);
   };
 
-  const sortAscending = filterType => {
+  const sortByName = filterType => {
     const newData = Object.keys(transactions).map(i => transactions[i]);
     newData.sort(function(a, b) {
       var alc = a.beneficiary_name.toLowerCase();
       var blc = b.beneficiary_name.toLowerCase();
-      return alc > blc ? 1 : alc < blc ? -1 : 0;
+      if (filterType === 'Nama A-Z') {
+        // ASC
+        return alc > blc ? 1 : alc < blc ? -1 : 0;
+      } else {
+        // DESC
+        return alc < blc ? 1 : alc > blc ? -1 : 0;
+      }
     });
     setTransactions(newData);
     setFilter(filterType);
     toggleModal();
   };
 
-  const sortDescending = filterType => {
+  const sortByDate = filterType => {
     const newData = Object.keys(transactions).map(i => transactions[i]);
     newData.sort(function(a, b) {
-      var alc = a.beneficiary_name.toLowerCase();
-      var blc = b.beneficiary_name.toLowerCase();
-      return alc < blc ? 1 : alc > blc ? -1 : 0;
+      var aDate = a.created_at;
+      var bDate = b.created_at;
+      if (filterType === 'Tanggal Terbaru') {
+        // NEWEST
+        return aDate < bDate ? 1 : aDate > bDate ? -1 : 0;
+      } else {
+        // OLDEST
+        return aDate > bDate ? 1 : aDate < bDate ? -1 : 0;
+      }
     });
     setTransactions(newData);
     setFilter(filterType);
@@ -85,8 +97,8 @@ const TransactionList = ({navigation}) => {
       )}
       <ModalOptions
         isVisible={modalVisible}
-        sortAscending={sortAscending}
-        sortDescending={sortDescending}
+        sortByName={sortByName}
+        sortByDate={sortByDate}
         showModal={toggleModal}
       />
     </View>

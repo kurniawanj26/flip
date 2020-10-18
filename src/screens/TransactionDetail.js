@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {Header, TextBold} from '../components';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {dateFormatter, numberFormatter} from '../helpers/utils';
 
 const TransactionDetail = ({route, navigation}) => {
   const [dataDetail, setDataDetail] = useState('');
@@ -54,7 +55,7 @@ const TransactionDetail = ({route, navigation}) => {
           </View>
           <View style={styles.rightSection}>
             <TextBold text="NOMINAL" />
-            <Text>{dataDetail.amount}</Text>
+            <Text>{dataDetail && numberFormatter(dataDetail.amount)}</Text>
           </View>
         </View>
         <View style={styles.rowContainer}>
@@ -70,7 +71,7 @@ const TransactionDetail = ({route, navigation}) => {
         <View style={styles.rowContainer}>
           <View style={styles.leftSection}>
             <TextBold text="WAKTU DIBUAT" />
-            <Text>{dataDetail.created_at}</Text>
+            <Text>{dataDetail && dateFormatter(dataDetail.created_at)}</Text>
           </View>
         </View>
       </View>
