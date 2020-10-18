@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 import {Header, TextBold} from '../components';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {dateFormatter, numberFormatter} from '../helpers/utils';
@@ -13,7 +19,7 @@ const TransactionDetail = ({route, navigation}) => {
   }, [route.params]);
 
   return (
-    <View style={styles.mainContainer}>      
+    <View style={styles.mainContainer}>
       <Header
         title="Transaction Detail"
         leftIcon="arrow-back"

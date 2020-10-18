@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 2,
-  }
+  },
 });
 
 export default CustomHeader;

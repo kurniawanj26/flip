@@ -32,7 +32,7 @@ const List = props => {
               }
             />
             <View style={styles.detailContainer}>
-              <View style={{flex: 1}}>
+              <View style={styles.itemContainer}>
                 <View style={styles.bankNames}>
                   <TextBold text={item.sender_bank.toUpperCase()} />
                   <Icon size={15} name="arrow-forward" />
@@ -133,6 +133,9 @@ const styles = StyleSheet.create({
   pendingText: {
     fontWeight: '500',
     fontSize: RFPercentage(2),
+  },
+  itemContainer: {
+    flex: 1,
   },
 });
 
