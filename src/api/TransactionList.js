@@ -1,11 +1,9 @@
-import axios from './baseURL';
+import axios from './BaseURL';
 
 const TransactionList = async () => {
   return axios
     .get('/frontend-test')
     .then(({data}) => {
-      //   console.log('result all', data);
-      // alert(JSON.stringify(data));
       return data;
     })
     .catch(err => {

@@ -7,25 +7,25 @@ const CustomHeader = props => {
   return (
     <Header style={styles.header}>
       {props.leftIcon ? (
-        <Left>
-          <Button style={styles.button} onPress={props.leftButton}>
+        <Left style={styles.titleCenter}>
+          <Button transparent style={styles.button} onPress={props.leftButton}>
             <Icon size={30} color="white" name={props.leftIcon} />
           </Button>
         </Left>
       ) : (
-        <Left />
+        <Left style={styles.titleCenter} />
       )}
-      <Body style={styles.titleContainer}>
+      <Body style={styles.body}>
         <Title style={styles.titleText}>{props.title}</Title>
       </Body>
       {props.rightIcon ? (
-        <Right>
+        <Right style={styles.titleCenter}>
           <Button onPress={props.rightButton}>
             {props.rightIcon && <Icon size={30} color="white" name="add" />}
           </Button>
         </Right>
       ) : (
-        <Right />
+        <Right style={styles.titleCenter} />
       )}
     </Header>
   );
@@ -41,9 +41,13 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'white',
   },
-  titleContainer: {
+  titleCenter: {
+    flex: 1,
+  },
+  body: {
     flex: 2,
-  }
+    alignItems: 'center',
+  },
 });
 
 export default CustomHeader;
