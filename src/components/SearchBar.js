@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -15,7 +15,7 @@ const SearchBar = props => {
         item.beneficiary_name.toUpperCase() +
         item.sender_bank.toUpperCase() +
         item.beneficiary_bank.toUpperCase() +
-        item.amount.toFixed(0);
+        item.amount;
 
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
@@ -24,18 +24,22 @@ const SearchBar = props => {
     props.setData(newData);
     props.setText(text);
   };
+
   return (
     <View style={styles.container}>
       <Icon size={25} color="#e0e0e0" name="search" />
       <TextInput
         style={styles.searchbar}
+        placeholder="Cari nama, bank, atau nominal"
         autoCorrect={false}
         autoCompleteType="off"
         onChangeText={text => searchData(text)}
         value={props.text}
       />
-      <TouchableOpacity style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>URUTKAN</Text>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={props.showModal}>
+        <Text style={styles.buttonText}>{props.filter}</Text>
         <Icon size={25} color="#f58442" name="expand-more" />
       </TouchableOpacity>
     </View>

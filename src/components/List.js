@@ -9,6 +9,7 @@ const List = props => {
     <FlatList
       showsVerticalScrollIndicator={false}
       data={props.data}
+      extraData={props.extraData}
       renderItem={({item}) => (
         <TouchableOpacity
           style={styles.listContainer}
@@ -34,7 +35,7 @@ const List = props => {
                 <Text>{item.beneficiary_name}</Text>
                 <View style={styles.amountAndDate}>
                   <Text>{numberFormatter(item.amount)} </Text>
-                  <Icon size={10} name="circle" />
+                  <Icon size={8} name="circle" />
                   <Text> {item.completed_at} </Text>
                 </View>
               </View>
