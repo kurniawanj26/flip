@@ -27,6 +27,7 @@ const TransactionDetail = ({route, navigation}) => {
       />
       <StatusBar backgroundColor="#f58442" />
       <View style={styles.contentContainer}>
+        {/* TOP SECTION */}
         <View style={styles.divider}>
           <View style={styles.idContainer}>
             <TextBold text={'ID TRANSAKSI: #' + dataDetail.id} />
@@ -40,6 +41,7 @@ const TransactionDetail = ({route, navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
+        {/* MIDDLE SECTION */}
         <View style={styles.divider}>
           <View style={styles.detailContainer}>
             <TextBold text="DETAIL TRANSAKSI" />
@@ -48,6 +50,7 @@ const TransactionDetail = ({route, navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
+        {/* BOTTOM SECTION */}
         <View style={styles.bankNames}>
           <TextBold text={dataDetail && dataDetail.sender_bank.toUpperCase()} />
           <Icon size={15} name="arrow-forward" />

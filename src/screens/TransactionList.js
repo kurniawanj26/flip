@@ -38,6 +38,7 @@ const TransactionList = ({navigation}) => {
   };
 
   const sortByName = filterType => {
+    // convert into array of object so we can use sort function
     const newData = Object.keys(transactions).map(i => transactions[i]);
     newData.sort(function(a, b) {
       var alc = a.beneficiary_name.toLowerCase();
@@ -56,6 +57,7 @@ const TransactionList = ({navigation}) => {
   };
 
   const sortByDate = filterType => {
+    // convert into array of object so we can use sort function
     const newData = Object.keys(transactions).map(i => transactions[i]);
     newData.sort(function(a, b) {
       var aDate = a.created_at;

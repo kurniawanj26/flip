@@ -4,8 +4,6 @@ const TransactionList = async () => {
   return axios
     .get('/frontend-test')
     .then(({data}) => {
-      //   console.log('result all', data);
-      // alert(JSON.stringify(data));
       return data;
     })
     .catch(err => {
