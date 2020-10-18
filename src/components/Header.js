@@ -15,9 +15,7 @@ const CustomHeader = props => {
       ) : (
         <Left style={styles.titleCenter} />
       )}
-      {/* <Body style={styles.titleCenter}> */}
       <Body style={styles.body}>
-      {/* <Body style={{flex: 3, flexDirection:'row', justifyContent:'center'}}> */}
         <Title style={styles.titleText}>{props.title}</Title>
       </Body>
       {props.rightIcon ? (
